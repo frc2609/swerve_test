@@ -15,9 +15,9 @@ The velocity must be specified in m/s in Java (C++ has the units library and can
 
 ```java
 // XboxController.Axis class allows accessing different controller axis
-int forwardVelocity = controller.Axis.kLeftY;
-int sidewaysVelocity = controller.Axis.kLeftX;
-int rotationVelocity = controller.Axis.kRightX;
+int forwardVelocity = controller.getLeftY();
+int sidewaysVelocity = controller.getLeftX();
+int rotationVelocity = controller.getRightX();
 // rotationVelocity can be multiplied to change rotational speed (e.g. 2 for doubling it or 0.5 for halving it)
 ChassisSpeeds speeds = new ChassisSpeeds(forwardVelocity, sidewaysVelocity, rotationVelocity);
 ```
@@ -25,9 +25,9 @@ ChassisSpeeds speeds = new ChassisSpeeds(forwardVelocity, sidewaysVelocity, rota
 The `ChassisSpeeds.fromFieldRelativeSpeeds()` static method can be used for field-oriented drive. It accepts the same parameters as the normal constructor with the linear velocity relative to the field instead of the robot, and returns a `ChassisSpeeds` object:
 
 ```java
-int forwardVelocity = controller.Axis.kLeftY;
-int sidewaysVelocity = controller.Axis.kLeftX;
-int rotationVelocity = controller.Axis.kRightX;
+int forwardVelocity = controller.getLeftY();
+int sidewaysVelocity = controller.getLeftX();
+int rotationVelocity = controller.getRightX();
 ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(forwardVelocity, sidewaysVelocity, rotationVelocity);
 ```
 
@@ -42,27 +42,7 @@ Module states can be converted to and from `ChassisSpeeds`. Construct a `SwerveD
 
 ## SwerveDriveKinematics
 `SwerveDriveKinematics` is constructed by providing several `Translation2d` objects. One `Translation2d` object should be provided for each swerve module, and there must be at least 2 modules.
-Provide a Translation2d (instructions on how to do it below) for each of the four swerve modules.
-
-### Translation2d
-We are using Java, so all units must be specified in metres.
-
-`Translation2d` contains an `x` and a `y` coordinate (the location of the swerve module relative to the centre of the robot). Both `x` and `y` are doubles.
-
-These are the directions that different values of `x` and `y` correspond to:
-```
-              Positive X (Front)
-                      ^
-                      |
-Positive Y (Left) <-------> Negative Y (Right)
-                      |
-                      v
-              Negative X (Rear)
-```
-
-Check out [the WPILib reference](https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Translation2d.html) for other methods that work with `Translation2d` (as well as `Rotation2d` and `Pose2d` objects) which may be useful.
-
-**Back to SwerveDriveKinematics:**
+Provide a Translation2d (instructions on how to do it in `WPILibGeometryClasses.md`) for each of the four swerve modules.
 
 To find the speed and velocity any swerve object must be set to, use the `toSwerveModuleState()` method. It takes in a ChassisSpeeds object and returns an array of `SwerveModuleState` objects in the same order as the `SwerveDriveKinematics` object was constructed:
 
@@ -91,17 +71,12 @@ The static method `optimize()` of `SwerveModuleState` minimizes the change in he
 
 For example, a swerve drive module is at 45 degrees (turning towards the left-front). We need it go into reverse, so we tell it to move to 180 degrees, then set the drive motors to 1.0 speed. `optimize()` will see that the module only needs to move 90 degrees, because that is equivalent to 180 degrees if the drive motor spins in reverse. `optimize()` will set the drive speed to -1.0 and the desired angle to 90 degrees, which will propel the robot in the same direction, but spend less time moving the swerve module.
 
-It takes the desired state of the module (a `SwerveModuleState`) and a `Rotation2d` (see below). It returns an optimized state you can use for the module's angle control loop.
+It takes the desired state of the module (a `SwerveModuleState`) and a `Rotation2d` (see `WPILibGeometryClasses.md`). It returns an optimized state you can use for the module's angle control loop.
 
 ```java
 SwerveModuleState frontLeftOptimized = SwerveModuleState.optimize(frontLeft, new Rotation2d(m_turningEncoder.getDistance()));
 // parameters: current SwerveModuleState, current position (in radians)
 ```
-
-### Rotation2d
-A `Rotation2d` object specifies a rotation, in radians. The constructor takes in a radian, but the object can optionally be constructed with the `Rotation2d.fromDegrees()` static method, which takes in an angle, in degrees and returns the Rotation2d object with the angle converted to radians.
-
-Positive rotations are counterclockwise (left), and negative rotations are clockwise (right).
 
 ### Field-Oriented Drive
 `ChassisSpeeds.fromFieldRelativeSpeeds()` can be used to create a ChassisSpeeds object from field relative speeds, which can be converted to an array of SwerveModuleStates:
@@ -132,20 +107,7 @@ m_pose = m_odometry.update(gyroAngle, m_frontLeft.getState(), m_frontRight.getSt
 
 The `resetPose` method is used to reset the pose of the robot. It takes in a `Translation2d` (the new field-relative pose) and a `Rotation2d` (the gyro angle). You must call this method whenever you reset the gyro's position.
 
-### Pose2d
-A `Pose2d` object has 3 parts: a `x` value, a `y` value, and a `Rotation2d` value (radians).
-```java
-// robot is facing forward, 5.0m along length of field and 13.5m along short end of field (position is relative to bottom left corner of your alliance's driver stations)
-Pose2d robotPosition = new Pose2d(5.0, 13.5, new Rotation2d());
-// alternatively:
-Pose2d robotPosition2 = new Pose2d(new Translation2d(5.0, 13.5), new Rotation2d());
-```
-
-## PIDController
-
 Todo:
-- Check validity of Xbox controller functions
 - Program an example (maybe display current wheel angles and speeds, as well as field-relative robot position on Shuffleboard)
-- Make Java programming lessons
 - Zero yaw button
 - Navx isConnected() indicator on SmartDashboard
