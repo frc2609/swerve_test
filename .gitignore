@@ -163,3 +163,6 @@ bin/
 
 # WPILib notes
 WPILib*.md
+
+# Todo list
+Todo.md

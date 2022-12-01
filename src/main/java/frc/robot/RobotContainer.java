@@ -6,10 +6,11 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.SwerveDrive;
 
 /**
@@ -20,8 +21,24 @@ import frc.robot.subsystems.SwerveDrive;
  */
 public class RobotContainer {
   private static AHRS m_navx;
-  private final SwerveDrive m_swerveDrive;
-  private final XboxController m_driverController;
+  public final XboxController m_driverController = new XboxController(
+    Constants.Xbox.DRIVER_CONTROLLER_PORT);
+
+  private boolean m_isFieldRelative = true; 
+  // Note: This should be removed and hardcoded to be true on the competition robot.
+  // Should it? SmartDashboard toggle is probably better (default true) so that it can be turned off for testing.
+
+  public final SwerveDrive m_swerveDrive;
+
+  private final JoystickButton m_fieldOrientedToggleButton = 
+      new JoystickButton(
+          m_driverController, XboxController.Button.kBack.value);
+  private final JoystickButton m_resetEncoderButton =
+      new JoystickButton(
+          m_driverController, XboxController.Button.kStart.value);
+  private final JoystickButton m_zeroYawButton =
+      new JoystickButton(
+          m_driverController, XboxController.Button.kY.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -30,9 +47,7 @@ public class RobotContainer {
     } catch (RuntimeException e) {
       DriverStation.reportError("Navx initialization failed", false);
     }
-    m_swerveDrive = new SwerveDrive();
-    m_driverController = new XboxController(Constants.Xbox.DRIVER_PORT);
-    // Configure the button bindings
+    m_swerveDrive = new SwerveDrive(m_navx, m_driverController);
     configureButtonBindings();
   }
 
@@ -42,7 +57,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    m_fieldOrientedToggleButton.whenPressed(new InstantCommand(
+      () -> m_isFieldRelative = !m_isFieldRelative));
+    m_resetEncoderButton.whenPressed(new InstantCommand(
+      m_swerveDrive::resetModuleEncoders, m_swerveDrive));
+    m_zeroYawButton.whenPressed(new InstantCommand(m_navx::zeroYaw));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -53,7 +74,10 @@ public class RobotContainer {
     return null;
   }
 
-  public static AHRS gyro() {
-    return m_navx;
+  /**
+   * Returns whether field-relative/field-oriented mode is enabled.
+   */
+  public boolean isFieldRelative() {
+    return m_isFieldRelative;
   }
 }
