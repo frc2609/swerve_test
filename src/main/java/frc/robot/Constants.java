@@ -105,11 +105,12 @@ public final class Constants {
         /** Converts to metres per second.
          * Explanation:
          * Spark Max outputs RPM (rotations per minute).
-         * RPM * 60 seconds/minute = RPS (rotations per second).
-         * RPS * motor : wheel gear ratio = wheel RPS
+         * RPM * motor : wheel gear ratio = wheel RPM
+         * Wheel RPM / 60 seconds/minute = wheel RPS
          * Wheel RPS * wheel circumference in metres = m/s.
+         * Note: Actual equation is equivalent to procedure above, but simplified.
          */
-        public static final double DRIVE_VELOCITY_CONVERSION = 60 * WHEEL_GEAR_RATIO * WHEEL_CIRCUMFERENCE;
+        public static final double DRIVE_VELOCITY_CONVERSION = (WHEEL_GEAR_RATIO  * WHEEL_CIRCUMFERENCE) / 60;
         /** Converts to module position in radians.
          * Explanation:
          * Spark Max outputs total rotations.
