@@ -13,9 +13,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+//    /** [description here] (Named Dashboard to avoid conflict with Shuffleboard class.) */
+//    public final class Dashboard {
+//        public static final String gyroLayout = "NavX";
+//        public static final String drivetrainTab = "Drivetrain";
+//    }
     /** Swerve drive related constants. */
     public final class Swerve {
-        // TODO: assign values to Spark Maxes
         /** CAN IDs of swerve module motor controllers. */
         public final class CanID {
             public static final int frontLeftDrive = 1;
@@ -27,24 +31,30 @@ public final class Constants {
             public static final int rearRightDrive = 7;
             public static final int rearRightRotation = 8;
         }
-        // TODO: find values -> sysID will save lots of time
-        /** Swerve drive PID and feedforward gains. */
+        // TODO: find values
+        /** Swerve drive PID and feedforward gains. 
+         * setVoltage() is used to set motor power, as it ensures the motor
+         * always outputs the same force when the battery voltage sags. 
+         * Since setVoltage() is being used, these gains are tuned to produce
+         * a *voltage* value, not a speed value, so `set()` should not be used
+         * with any controller using these gains.
+        */
         public final class Gains {
-            public static final double drivePID_kP = 1;
+            public static final double drivePID_kP = 1.1867;
             public static final double drivePID_kI = 0;
             public static final double drivePID_kD = 0;
 
-            public static final double rotationPID_kP = 1;
+            // TODO: tune rotation PID
+            public static final double rotationPID_kP = 3;
             public static final double rotationPID_kI = 0;
             public static final double rotationPID_kD = 0;
 
-            public static final double driveFF_kS = 1;
-            public static final double driveFF_kV = 1;
+            public static final double driveFF_kS = 0;
+            public static final double driveFF_kV = 0;
 
-            public static final double rotationFF_kS = 1;
-            public static final double rotationFF_kV = 1;
+            public static final double rotationFF_kS = 0;
+            public static final double rotationFF_kV = 0;
         }
-        // TODO: find values, update
         /** Constants related to swerve module positions. */
         public final class Position {
             /* Direction Polarity:
@@ -62,9 +72,9 @@ public final class Constants {
              * Rear Right   -   -
              */
             /** Front-rear (X) distance between two swerve modules measured from centre of wheel in metres. */
-            public static final double TRACK_SIZE_X = 0.9; // TODO: find
+            public static final double TRACK_SIZE_X = 0.6096; // 24 inches (in metres)
             /** Left-right (Y) distance between two swerve modules measured from centre of wheel in metres. */
-            public static final double TRACK_SIZE_Y = 0.6; // TODO: find
+            public static final double TRACK_SIZE_Y = 0.6096; // 24 inches (in metres)
             /** Front-rear (X) distance from centre of wheel to centre of robot in metres. */
             public static final double X_FROM_CENTRE = TRACK_SIZE_X / 2;
             /** Left-right (Y) distance from centre of wheel to centre of robot in metres. */
@@ -79,10 +89,12 @@ public final class Constants {
             public static final double rearRightY   = -Y_FROM_CENTRE;
         }
         // Miscellaneous:
+        public static final double DEBUG_DRIVE_ANGLE_SENSITIVITY = 0.25;
         public static final double MAX_ANGULAR_ACCELERATION = 2 * Math.PI; // radians per second squared, TODO: adjust value
         public static final double MAX_ANGULAR_VELOCITY = Math.PI; // radians, TODO: adjust value
         public static final double MAX_LINEAR_SPEED = 3.0; // m/s, TODO: adjust value
         /** 60.0 rotations of motor = 1.0 rotation of module */
+        // TODO: the gear ratio is not actually 1:60, because 1 rotation != 6.0 radians (6.0 obtained by manually rotating module 1 full rotation)
         public static final double ROTATION_GEAR_RATIO = 1.0 / 60.0; // .0 to avoid integer division
         public static final double WHEEL_RADIUS = 0.0508; // metres
         public static final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // metres

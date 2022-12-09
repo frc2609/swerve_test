@@ -2,6 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+// should we even bother implementing sendable for this? I want to be able to control what it displays and it will all go in the drivetrain tab anyways
+// plus who's actually sending it (hint: nobody)
+
 package frc.robot.subsystems;
 
 // static imports allow access to all constants in the class without using its name
@@ -19,8 +22,11 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+//import edu.wpi.first.util.sendable.SendableBuilder;
+//import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
@@ -40,33 +46,62 @@ public class SwerveDrive extends SubsystemBase {
   private final Translation2d m_rearLeftLocation = new Translation2d(Position.rearLeftX, Position.rearLeftY);
   private final Translation2d m_rearRightLocation = new Translation2d(Position.rearRightX, Position.rearRightY);
   
-  private final SwerveModule m_frontLeft = new SwerveModule(CanID.frontLeftDrive, CanID.frontLeftRotation);
-  private final SwerveModule m_frontRight = new SwerveModule(CanID.frontRightDrive, CanID.frontRightRotation);
-  private final SwerveModule m_rearLeft = new SwerveModule(CanID.rearLeftDrive, CanID.rearLeftRotation);
-  private final SwerveModule m_rearRight = new SwerveModule(CanID.rearRightDrive, CanID.rearRightRotation);
+  private final SwerveModule m_frontLeft = new SwerveModule("Front Left", CanID.frontLeftDrive, CanID.frontLeftRotation);
+  private final SwerveModule m_frontRight = new SwerveModule("Front Right", CanID.frontRightDrive, CanID.frontRightRotation);
+  private final SwerveModule m_rearLeft = new SwerveModule("Rear Left", CanID.rearLeftDrive, CanID.rearLeftRotation);
+  private final SwerveModule m_rearRight = new SwerveModule("Rear Right", CanID.rearRightDrive, CanID.rearRightRotation);
 
   private final SwerveDriveKinematics m_kinematics =
       new SwerveDriveKinematics(
           m_frontLeftLocation, m_frontRightLocation, m_rearLeftLocation, m_rearRightLocation);
   
   private final SwerveDriveOdometry m_odometry;
-  
+
+  private boolean m_isFieldRelative = false;
+  private double m_debugAngleSetpoint = 0; // radians
+
   /** Creates a new SwerveDrive. */
   public SwerveDrive(AHRS gyro, XboxController driverController) {
     m_driverController = driverController;
     m_gyro = gyro;
     if (!m_gyro.isConnected()) {
       DriverStation.reportError(
-        "Navx not initialized: Could not setup SwerveDriveOdometry", false);
+        "Navx not initialized - Could not setup SwerveDriveOdometry", false);
     }
     m_odometry = new SwerveDriveOdometry(m_kinematics, m_gyro.getRotation2d());
     resetModuleEncoders();
+    // group modules under this subsystem in LiveWindow
+    // addChild("Front Left", m_frontLeft);
+    // addChild("Front Right", m_frontRight);
+    // addChild("Rear Left", m_rearLeft);
+    // addChild("Rear Right", m_rearRight);
   }
+
+  /** Configure data being sent and recieved from NetworkTables. */
+  // @Override
+  // public void initSendable(SendableBuilder builder) {
+  //   // ()-> is a lambda that returns the value following the arrow.
+  //   // It is used because addBooleanProperty() requires a Callable.
+  //   builder.addBooleanProperty("Is Field Relative", ()->m_isFieldRelative, (boolean b)->{m_isFieldRelative=b;});
+  //   // getter always sets value to false to reset button
+  //   builder.addBooleanProperty("Reset Encoders", ()->false, (boolean pressed)->{if (pressed) resetModuleEncoders();});
+  // }
 
   // This method will be called once per scheduler run.
   @Override
   public void periodic() {
     updateOdometry();
+    m_frontLeft.updateNetworkTables();
+    m_frontRight.updateNetworkTables();
+    m_rearLeft.updateNetworkTables();
+    m_rearRight.updateNetworkTables();
+    m_isFieldRelative = SmartDashboard.getBoolean("Is Field Relative", false);
+    SmartDashboard.putBoolean("Is Field Relative", m_isFieldRelative);
+    if (SmartDashboard.getBoolean("Reset Encoders", false)) {
+      resetModuleEncoders();
+      SmartDashboard.putBoolean("Reset Encoders", false); // reset the button
+    }
+    // add the field position here
   }
 
   /** 
@@ -98,20 +133,32 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   /**
+   * Set the velocity and angle of all swerve drive modules using input from
+   * the driver's Xbox controller (specified in class constructor).
+   * Velocity is set to the left Y axis.
+   * Angle is set to a persistent value which is increased or decreased using
+   * the right X axis.
+   * Use for testing purposes only.
+   */
+  public void debugDrive() {
+    double velocity = m_driverController.getLeftY();
+    m_debugAngleSetpoint += m_driverController.getRightX() * DEBUG_DRIVE_ANGLE_SENSITIVITY;
+    set(velocity, m_debugAngleSetpoint);
+  }
+
+  /**
    * Drive the robot using joystick inputs from the driver's Xbox controller 
    * (controller specified in class constructor).
-   * 
-   * @param isFieldRelative Whether the robot's movement is relative to the
-   * field or the robot frame.
    */
-  public void manualDrive(boolean isFieldRelative) {
+  public void manualDrive() {
     /* getLeftY() is used for xSpeed because xSpeed moves robot forward/back.
      * (The same applies for getLeftX()). This occurs because of the way robot
      * coordinates are implemented in WPILib.
      * (See https://docs.wpilib.org/en/stable/docs/software/advanced-controls/geometry/coordinate-systems.html.)
      */
     /* Speeds are inverted because Xbox controllers return negative values when
-     * joystick is pushed forward or to the left.
+     * joystick is pushed forward or to the left. -> clearly that doesn't work
+     * TODO: fix joystick inversion
      */
     final double xSpeed =
         -m_xSpeedLimiter.calculate(MathUtil.applyDeadband(
@@ -129,7 +176,14 @@ public class SwerveDrive extends SubsystemBase {
             m_driverController.getRightX(), Xbox.JOYSTICK_DEADBAND))
                 * MAX_ANGULAR_VELOCITY; // radians / second
 
-    drive(xSpeed, ySpeed, rotationSpeed, isFieldRelative);
+    drive(xSpeed, ySpeed, rotationSpeed, m_isFieldRelative);
+  }
+
+  /**
+   * Reset the angle setpoint used for debugDrive.
+   */
+  public void resetDebugAngle() {
+    m_debugAngleSetpoint = 0;
   }
 
   /**
@@ -146,6 +200,25 @@ public class SwerveDrive extends SubsystemBase {
     m_frontRight.resetEncoders();
     m_rearLeft.resetEncoders();
     m_rearRight.resetEncoders();
+  }
+
+  /**
+   * Manually set the velocity and angle of all swerve drive modules.
+   * Use for testing purposes only.
+   * 
+   * @param velocity The desired velocity of the modules in metres per second.
+   * @param angle The desired angle of the modules in radians.
+   */
+  public void set(double velocity, double angle) {
+    m_frontLeft.setVelocity(velocity);
+    m_frontRight.setVelocity(velocity);
+    m_rearLeft.setVelocity(velocity);
+    m_rearRight.setVelocity(velocity);
+
+    m_frontLeft.rotateTo(angle);
+    m_frontRight.rotateTo(angle);
+    m_rearLeft.rotateTo(angle);
+    m_rearRight.rotateTo(angle);
   }
 
   /** Updates the field relative position of the robot. */

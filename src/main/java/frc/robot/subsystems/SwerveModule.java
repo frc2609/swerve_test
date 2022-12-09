@@ -16,11 +16,15 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+//import edu.wpi.first.util.sendable.Sendable;
+//import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Represents a single swerve drive module.
  */
-public class SwerveModule {
+public class SwerveModule {//implements Sendable {
   private final CANSparkMax m_driveMotor;
   private final CANSparkMax m_rotationMotor;
 
@@ -42,8 +46,10 @@ public class SwerveModule {
   private final SimpleMotorFeedforward m_rotationFeedforward =
       new SimpleMotorFeedforward(rotationFF_kS, rotationFF_kV);
 
+  private final String m_name;
+
   /** Creates a new SwerveModule. */
-  public SwerveModule(int driveMotorID, int rotationMotorID) {
+  public SwerveModule(String name, int driveMotorID, int rotationMotorID) {
     m_driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
     m_rotationMotor = new CANSparkMax(rotationMotorID, MotorType.kBrushless);
 
@@ -71,9 +77,31 @@ public class SwerveModule {
      * 7. If it behaves, do nothing.
      * 8. If it doesn't, divide m_rotationEncoder.getPosition() by Math.PI in getState() to limit it to 1 radian in either direction.
      */
-    m_rotationPIDController.enableContinuousInput(Math.PI, Math.PI);
-    // equivalent to -180 degrees and 180 degrees
+    m_rotationPIDController.enableContinuousInput(2* Math.PI, 2* Math.PI);
+    // equivalent to -360 degrees and 360 degrees
+
+    m_name = name;
+    SendableRegistry.setName(m_drivePIDController, m_name, "Drive PID Controller");
+    SendableRegistry.setName(m_rotationPIDController, m_name, "Rotation PID Controller");
+    // ProfiledPIDController is not added to SendableRegistry (see https://github.com/wpilibsuite/allwpilib/pull/4656)
+    // ProfiledPIDControllers may (and do, usually) appear with a generic name and they may not be associated with the subsystem
+    // feedforward controllers aren't sent as they don't implement Sendable
   }
+
+  /** Update data being sent and recieved from NetworkTables. */
+  public void updateNetworkTables() {
+    SmartDashboard.putNumber(m_name + " Angle (radians)", m_rotationEncoder.getPosition());
+    SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
+    SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
+  }
+
+  /** Configure data being sent and recieved from NetworkTables. */
+  // @Override
+  // public void initSendable(SendableBuilder builder) {
+  //   builder.addDoubleProperty("Distance Travelled (m)", m_driveEncoder::getPosition, null);
+  //   builder.addDoubleProperty("Velocity (m/s)", m_driveEncoder::getVelocity, null);
+  //   builder.addDoubleProperty("Angle (radians)", m_rotationEncoder::getPosition, null);
+  // }
 
   /**
    * Returns the current state of the module.
@@ -115,12 +143,43 @@ public class SwerveModule {
     
     // Calculate the rotation motor output from the rotation PID controller.
     final double rotationOutput =
-        m_rotationPIDController.calculate(m_rotationEncoder.getPosition(), state.angle.getDegrees());
+        m_rotationPIDController.calculate(m_rotationEncoder.getPosition(), state.angle.getRadians());
 
     final double rotationFeedforward =
         m_rotationFeedforward.calculate(m_rotationPIDController.getSetpoint().velocity);
 
-    m_driveMotor.setVoltage(driveOutput + driveFeedforward);
-    m_rotationMotor.setVoltage(rotationOutput + rotationFeedforward);
+    final double driveVoltage = driveOutput + driveFeedforward;
+    final double rotationVoltage = rotationOutput + rotationFeedforward;
+
+    SmartDashboard.putNumber(m_name + " Drive Voltage", driveOutput + driveFeedforward);
+    SmartDashboard.putNumber(m_name + " Rotation Voltage", rotationOutput + rotationFeedforward);
+   
+    m_driveMotor.setVoltage(driveVoltage);
+    m_rotationMotor.setVoltage(rotationVoltage);
+  }
+
+  /**
+   * Rotate the module to the specified angle.
+   * This method must be called periodically in order to function.
+   * 
+   * @param desiredAngle The desired angle of the module, in radians.
+   */
+  public void rotateTo(double desiredAngle) {
+    final double position = m_rotationEncoder.getPosition();
+    final double output = m_rotationPIDController.calculate(position, desiredAngle);
+    // we always be using setVoltage from now on folks
+    m_rotationMotor.setVoltage(output);
+  }
+
+  /**
+   * Drive the module at the specified velocity.
+   * This method must be called periodically in order to function.
+   * 
+   * @param desiredVelocity The desired velocity in m/s.
+   */
+  public void setVelocity(double desiredVelocity) {
+    final double velocity = m_driveEncoder.getVelocity();
+    final double output = m_drivePIDController.calculate(velocity, desiredVelocity);
+    m_driveMotor.setVoltage(output);
   }
 }
