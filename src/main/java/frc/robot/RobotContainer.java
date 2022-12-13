@@ -95,6 +95,7 @@ public class RobotContainer {
     }
     m_swerveDrive = new SwerveDrive(m_navx, m_driverController);
     configureButtonBindings();
+    SmartDashboard.putBoolean("Zero Yaw", false); // display the buttonx
   }
 
   /**

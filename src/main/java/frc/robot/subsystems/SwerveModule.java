@@ -86,11 +86,15 @@ public class SwerveModule {//implements Sendable {
     // ProfiledPIDController is not added to SendableRegistry (see https://github.com/wpilibsuite/allwpilib/pull/4656)
     // ProfiledPIDControllers may (and do, usually) appear with a generic name and they may not be associated with the subsystem
     // feedforward controllers aren't sent as they don't implement Sendable
+    SmartDashboard.putNumber(m_name + " Drive Setpoint (m/s)", 0);
+    SmartDashboard.putNumber(m_name + " Angle Setpoint (rad)", 0);
+    SmartDashboard.putNumber(m_name + " Drive Voltage", 0);
+    SmartDashboard.putNumber(m_name + " Rotation Voltage", 0);
   }
 
   /** Update data being sent and recieved from NetworkTables. */
   public void updateNetworkTables() {
-    SmartDashboard.putNumber(m_name + " Angle (radians)", m_rotationEncoder.getPosition());
+    SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
   }
@@ -116,9 +120,9 @@ public class SwerveModule {//implements Sendable {
   }
 
   /**
-   * Reset the rotation and drive encoders. DOES NOT HOME THE MODULE!
+   * Reset the rotation and drive encoder POSITIONS. DOES NOT HOME THE MODULE!
    * This should be used to reset the encoder position after manually homing
-   * the module.
+   * the module. (Does not reset encoder velocity.)
    */
   public void resetEncoders() {
     m_driveEncoder.setPosition(0);
@@ -131,19 +135,29 @@ public class SwerveModule {//implements Sendable {
    * @param desiredState Desired state with speed and angle.
    */
   public void setDesiredState(SwerveModuleState desiredState) {
-    // Optimize the reference state to avoid spinning further than 90 degrees
-    SwerveModuleState state =
-        SwerveModuleState.optimize(desiredState, new Rotation2d(m_rotationEncoder.getPosition()));
+    /* Invert the rotation setpoint because the modules spin clockwise when
+    * the rotation setpoint is positive (clockwise-positive) whereas
+    * SwerveModuleState specifies the angle in counterclockwise-positive.
+    */
+    SwerveModuleState invertedState =
+        new SwerveModuleState(desiredState.speedMetersPerSecond, 
+            new Rotation2d(-desiredState.angle.getRadians()));
     
+    // Optimize the desired (inverted) state to avoid spinning further than 90 degrees
+    SwerveModuleState optimizedState =
+        SwerveModuleState.optimize(invertedState, new Rotation2d(m_rotationEncoder.getPosition()));
+
     // Calculate the drive output from the drive PID controller.
     final double driveOutput =
-        m_drivePIDController.calculate(m_driveEncoder.getVelocity(), state.speedMetersPerSecond);
+        m_drivePIDController.calculate(m_driveEncoder.getVelocity(), optimizedState.speedMetersPerSecond);
+    SmartDashboard.putNumber(m_name + " Drive Setpoint (m/s)", optimizedState.speedMetersPerSecond);
 
-    final double driveFeedforward = m_driveFeedforward.calculate(state.speedMetersPerSecond);
+    final double driveFeedforward = m_driveFeedforward.calculate(optimizedState.speedMetersPerSecond);
     
     // Calculate the rotation motor output from the rotation PID controller.
     final double rotationOutput =
-        m_rotationPIDController.calculate(m_rotationEncoder.getPosition(), state.angle.getRadians());
+        m_rotationPIDController.calculate(m_rotationEncoder.getPosition(), optimizedState.angle.getRadians());
+    SmartDashboard.putNumber(m_name + " Angle Setpoint (rad)", optimizedState.angle.getRadians());
 
     final double rotationFeedforward =
         m_rotationFeedforward.calculate(m_rotationPIDController.getSetpoint().velocity);
@@ -151,8 +165,8 @@ public class SwerveModule {//implements Sendable {
     final double driveVoltage = driveOutput + driveFeedforward;
     final double rotationVoltage = rotationOutput + rotationFeedforward;
 
-    SmartDashboard.putNumber(m_name + " Drive Voltage", driveOutput + driveFeedforward);
-    SmartDashboard.putNumber(m_name + " Rotation Voltage", rotationOutput + rotationFeedforward);
+    SmartDashboard.putNumber(m_name + " Drive Voltage", driveVoltage);
+    SmartDashboard.putNumber(m_name + " Rotation Voltage", rotationVoltage);
    
     m_driveMotor.setVoltage(driveVoltage);
     m_rotationMotor.setVoltage(rotationVoltage);

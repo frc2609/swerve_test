@@ -26,6 +26,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 //import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -56,6 +57,8 @@ public class SwerveDrive extends SubsystemBase {
           m_frontLeftLocation, m_frontRightLocation, m_rearLeftLocation, m_rearRightLocation);
   
   private final SwerveDriveOdometry m_odometry;
+  /** Displays the robot's position relative to the field through NetworkTables. */
+  private final Field2d m_field = new Field2d();
 
   private boolean m_isFieldRelative = false;
   private double m_debugAngleSetpoint = 0; // radians
@@ -75,6 +78,12 @@ public class SwerveDrive extends SubsystemBase {
     // addChild("Front Right", m_frontRight);
     // addChild("Rear Left", m_rearLeft);
     // addChild("Rear Right", m_rearRight);
+    /* The Field2d widget can also be used to visualize the robot's trajectory:
+    * https://docs.wpilib.org/en/stable/docs/software/dashboards/glass/field2d-widget.html
+    * contains information on how to accomplish this. This could be helpful for
+    * autonomous programming. */
+    SmartDashboard.putData("Field", m_field);
+    SmartDashboard.putBoolean("Reset Encoders", false); // display button
   }
 
   /** Configure data being sent and recieved from NetworkTables. */
@@ -90,18 +99,20 @@ public class SwerveDrive extends SubsystemBase {
   // This method will be called once per scheduler run.
   @Override
   public void periodic() {
+    // odometry and NetworkTables
     updateOdometry();
+    m_field.setRobotPose(m_odometry.getPoseMeters());
     m_frontLeft.updateNetworkTables();
     m_frontRight.updateNetworkTables();
     m_rearLeft.updateNetworkTables();
     m_rearRight.updateNetworkTables();
+    // handle button input from NetworkTables
     m_isFieldRelative = SmartDashboard.getBoolean("Is Field Relative", false);
     SmartDashboard.putBoolean("Is Field Relative", m_isFieldRelative);
     if (SmartDashboard.getBoolean("Reset Encoders", false)) {
       resetModuleEncoders();
       SmartDashboard.putBoolean("Reset Encoders", false); // reset the button
     }
-    // add the field position here
   }
 
   /** 
@@ -157,8 +168,7 @@ public class SwerveDrive extends SubsystemBase {
      * (See https://docs.wpilib.org/en/stable/docs/software/advanced-controls/geometry/coordinate-systems.html.)
      */
     /* Speeds are inverted because Xbox controllers return negative values when
-     * joystick is pushed forward or to the left. -> clearly that doesn't work
-     * TODO: fix joystick inversion
+     * joystick is pushed forward or to the left.
      */
     final double xSpeed =
         -m_xSpeedLimiter.calculate(MathUtil.applyDeadband(
