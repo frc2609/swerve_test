@@ -20,6 +20,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 //import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 
 /**
  * Represents a single swerve drive module.
@@ -60,25 +61,8 @@ public class SwerveModule {//implements Sendable {
     m_rotationEncoder = m_rotationMotor.getEncoder();
     m_rotationEncoder.setPositionConversionFactor(ROTATION_POSITION_CONVERSION);
 
-    /* Problem description:
-     * The Spark Max encoder can be any negative or positive number, it is not confined to a range.
-     * The min and max in enableContinousInput will act as the same point.
-     * My guess is that WPILib assumed the swerve module would never rotate more than 180 degrees.
-     * This assumption is correct provided that SwerveModuleState.optimize() is used (never rotates more than 90 degrees).
-     * However, if someone spins the module or the robot is bumped, it could go out of range.
-     * What happens if you exceed the minimum or maximum values? Bad or acceptable behaviour?
-     */
-    /* Testing (Attempt when swerve modules are completed):
-     * 1. Disable the robot with the swerve modules in a valid position (-180 to 180 degrees).
-     * 2. Manually move one swerve a full rotation (360 degrees in either direction).
-     * 4. (Make sure the module ends up in the same position it started!)
-     * 5. Confirm the position with Shuffleboard.
-     * 6. Re-enable the robot. Does the swerve module operate normally, or does it randomly change directions?
-     * 7. If it behaves, do nothing.
-     * 8. If it doesn't, divide m_rotationEncoder.getPosition() by Math.PI in getState() to limit it to 1 radian in either direction.
-     */
-    m_rotationPIDController.enableContinuousInput(2* Math.PI, 2* Math.PI);
-    // equivalent to -360 degrees and 360 degrees
+    m_rotationPIDController.enableContinuousInput(-Math.PI, Math.PI);
+    // equivalent to -180 degrees and 180 degrees
 
     m_name = name;
     SendableRegistry.setName(m_drivePIDController, m_name, "Drive PID Controller");
@@ -97,6 +81,12 @@ public class SwerveModule {//implements Sendable {
     SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
+    m_rotationPIDController.setP(SmartDashboard.getNumber(m_name + " Rotation PID kP", Constants.Swerve.Gains.rotationPID_kP));
+    m_rotationPIDController.setI(SmartDashboard.getNumber(m_name + " Rotation PID kI", Constants.Swerve.Gains.rotationPID_kI));
+    m_rotationPIDController.setD(SmartDashboard.getNumber(m_name + " Rotation PID kD", Constants.Swerve.Gains.rotationPID_kD));
+    SmartDashboard.putNumber(m_name + " Rotation PID kP", m_rotationPIDController.getP());
+    SmartDashboard.putNumber(m_name + " Rotation PID kI", m_rotationPIDController.getI());
+    SmartDashboard.putNumber(m_name + " Rotation PID kD", m_rotationPIDController.getD());
   }
 
   /** Configure data being sent and recieved from NetworkTables. */
@@ -137,7 +127,7 @@ public class SwerveModule {//implements Sendable {
   public void setDesiredState(SwerveModuleState desiredState) {
     /* Invert the rotation setpoint because the modules spin clockwise when
     * the rotation setpoint is positive (clockwise-positive) whereas
-    * SwerveModuleState specifies the angle in counterclockwise-positive.
+    * SwerveModuleState specifies counterclockwise-positive angles.
     */
     SwerveModuleState invertedState =
         new SwerveModuleState(desiredState.speedMetersPerSecond, 
@@ -181,7 +171,8 @@ public class SwerveModule {//implements Sendable {
   public void rotateTo(double desiredAngle) {
     final double position = m_rotationEncoder.getPosition();
     final double output = m_rotationPIDController.calculate(position, desiredAngle);
-    // we always be using setVoltage from now on folks
+    SmartDashboard.putNumber(m_name + " Angle Setpoint (rad)", desiredAngle);
+    SmartDashboard.putNumber(m_name + " Rotation Voltage", output);
     m_rotationMotor.setVoltage(output);
   }
 
@@ -194,6 +185,8 @@ public class SwerveModule {//implements Sendable {
   public void setVelocity(double desiredVelocity) {
     final double velocity = m_driveEncoder.getVelocity();
     final double output = m_drivePIDController.calculate(velocity, desiredVelocity);
+    SmartDashboard.putNumber(m_name + " Drive Setpoint (m/s)", desiredVelocity);
+    SmartDashboard.putNumber(m_name + " Drive Voltage", output);
     m_driveMotor.setVoltage(output);
   }
 }

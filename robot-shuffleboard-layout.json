@@ -10,7 +10,511 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "0,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Velocity (m/s)",
+              "_title": "Rear Right Velocity (m/s)"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Angle (rad)",
+              "_title": "Rear Left Angle (rad)"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Rotation Voltage",
+              "_title": "Front Right Rotation Voltage"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Navx Connected",
+              "_title": "Navx Connected",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "4,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Distance Travelled (m)",
+              "_title": "Front Right Distance Travelled (m)"
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Drive Setpoint (m/s)",
+              "_title": "Front Right Drive Setpoint (m/s)"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Angle (rad)",
+              "_title": "Front Left Angle (rad)"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Velocity (m/s)",
+              "_title": "Front Left Velocity (m/s)"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Drive Setpoint (m/s)",
+              "_title": "Rear Right Drive Setpoint (m/s)"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Drive Voltage",
+              "_title": "Front Left Drive Voltage"
+            }
+          },
+          "10,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Rotation PID kD",
+              "_title": "Front Right Rotation PID kD"
+            }
+          },
+          "11,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Rotation PID kI",
+              "_title": "Front Right Rotation PID kI"
+            }
+          },
+          "12,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Angle Setpoint (rad)",
+              "_title": "Front Right Angle Setpoint (rad)"
+            }
+          },
+          "0,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Rotation PID kP",
+              "_title": "Front Right Rotation PID kP"
+            }
+          },
+          "1,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Drive Voltage",
+              "_title": "Front Right Drive Voltage"
+            }
+          },
+          "2,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Rotation Voltage",
+              "_title": "Rear Left Rotation Voltage"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Drive Voltage",
+              "_title": "Rear Left Drive Voltage"
+            }
+          },
+          "4,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Drive Setpoint (m/s)",
+              "_title": "Front Left Drive Setpoint (m/s)"
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Drive Setpoint (m/s)",
+              "_title": "Rear Left Drive Setpoint (m/s)"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Velocity (m/s)",
+              "_title": "Rear Left Velocity (m/s)"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Angle Setpoint (rad)",
+              "_title": "Rear Right Angle Setpoint (rad)"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Rotation PID kD",
+              "_title": "Front Left Rotation PID kD"
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Zero Yaw",
+              "_title": "Zero Yaw",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Distance Travelled (m)",
+              "_title": "Rear Right Distance Travelled (m)"
+            }
+          },
+          "11,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Rotation PID kI",
+              "_title": "Front Left Rotation PID kI"
+            }
+          },
+          "12,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Angle (rad)",
+              "_title": "Front Right Angle (rad)"
+            }
+          },
+          "0,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Angle (rad)",
+              "_title": "Rear Right Angle (rad)"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Rotation PID kP",
+              "_title": "Front Left Rotation PID kP"
+            }
+          },
+          "2,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Drive Voltage",
+              "_title": "Rear Right Drive Voltage"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Velocity (m/s)",
+              "_title": "Front Right Velocity (m/s)"
+            }
+          },
+          "4,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Angle Setpoint (rad)",
+              "_title": "Front Left Angle Setpoint (rad)"
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Angle Setpoint (rad)",
+              "_title": "Rear Left Angle Setpoint (rad)"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Distance Travelled (m)",
+              "_title": "Front Left Distance Travelled (m)"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Gyro Angle",
+              "_title": "Gyro Angle"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Rotation Voltage",
+              "_title": "Rear Right Rotation Voltage"
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Rotation PID kD",
+              "_title": "Rear Right Rotation PID kD"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Rotation PID kI",
+              "_title": "Rear Right Rotation PID kI"
+            }
+          },
+          "11,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Rotation PID kP",
+              "_title": "Rear Right Rotation PID kP"
+            }
+          },
+          "12,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Rotation PID kD",
+              "_title": "Rear Left Rotation PID kD"
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Rotation Voltage",
+              "_title": "Front Left Rotation Voltage"
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Reset Encoders",
+              "_title": "Reset Encoders",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Is Field Relative",
+              "_title": "Is Field Relative",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Rotation PID kP",
+              "_title": "Rear Left Rotation PID kP"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Rotation PID kI",
+              "_title": "Rear Left Rotation PID kI"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Distance Travelled (m)",
+              "_title": "Rear Left Distance Travelled (m)"
+            }
+          }
+        }
       }
     },
     {
@@ -256,6 +760,7 @@
             ],
             "content": {
               "_type": "Field",
+              "_source0": "network_table:///SmartDashboard/Field",
               "_title": "Field",
               "Game/Game": "A2022_Rapid_React",
               "Visuals/Robot Icon Size": 50.0,
@@ -414,6 +919,7 @@
             ],
             "content": {
               "_type": "Gyro",
+              "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[1]",
               "_title": "Gyro",
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
@@ -546,9 +1052,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1936.0,
-    "height": 1056.0
+    "x": -7.0,
+    "y": 2.0,
+    "width": 1932.0,
+    "height": 1045.0
   }
 }

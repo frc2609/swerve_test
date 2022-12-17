@@ -2,9 +2,6 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-// should we even bother implementing sendable for this? I want to be able to control what it displays and it will all go in the drivetrain tab anyways
-// plus who's actually sending it (hint: nobody)
-
 package frc.robot.subsystems;
 
 // static imports allow access to all constants in the class without using its name

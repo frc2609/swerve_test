@@ -45,7 +45,7 @@ public final class Constants {
             public static final double drivePID_kD = 0;
 
             // TODO: tune rotation PID
-            public static final double rotationPID_kP = 3;
+            public static final double rotationPID_kP = 15;
             public static final double rotationPID_kI = 0;
             public static final double rotationPID_kD = 0;
 
@@ -91,11 +91,15 @@ public final class Constants {
         // Miscellaneous:
         public static final double DEBUG_DRIVE_ANGLE_SENSITIVITY = 0.25;
         public static final double MAX_ANGULAR_ACCELERATION = 2 * Math.PI; // radians per second squared, TODO: adjust value
-        public static final double MAX_ANGULAR_VELOCITY = Math.PI; // radians, TODO: adjust value
-        public static final double MAX_LINEAR_SPEED = 3.0; // m/s, TODO: adjust value
+        public static final double MAX_ANGULAR_VELOCITY = 4 * Math.PI; // radians, TODO: adjust value
+        public static final double MAX_LINEAR_SPEED = 15; // m/s, TODO: adjust value
         /** 60.0 rotations of motor = 1.0 rotation of module */
         // TODO: the gear ratio is not actually 1:60, because 1 rotation != 6.0 radians (6.0 obtained by manually rotating module 1 full rotation)
-        public static final double ROTATION_GEAR_RATIO = 1.0 / 60.0; // .0 to avoid integer division
+        // TODO: document *why* this is 56.954226922496
+        /* Why is the gear ratio 56.954226922496?:
+        * 
+        */
+        public static final double ROTATION_GEAR_RATIO = 1 / 56.954226922496; // 1.0 / 60.0; // .0 to avoid integer division
         public static final double WHEEL_RADIUS = 0.0508; // metres
         public static final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // metres
         /** 8.0 rotations of motor = 1.0 rotation of wheel */
@@ -138,6 +142,6 @@ public final class Constants {
     */
     public final class Xbox {
         public static final int DRIVER_CONTROLLER_PORT = 0;
-        public static final double JOYSTICK_DEADBAND = 0.05;
+        public static final double JOYSTICK_DEADBAND = 0.075;
     }
 }
