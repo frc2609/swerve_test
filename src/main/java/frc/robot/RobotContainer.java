@@ -51,7 +51,7 @@ public class RobotContainer {
       new JoystickButton(
           m_driverController, XboxController.Button.kY.value);
 /*
-  // TODO: make sure this appears correctly (also check titles) -> it did not
+  // Hardcoded Shuffleboard layout did not work.
   private final ShuffleboardTab drivetrainTab = Shuffleboard.getTab(Dashboard.drivetrainTab);
   // private final ShuffleboardLayout gyroLayout =
   //     drivetrainTab

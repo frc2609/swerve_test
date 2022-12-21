@@ -93,13 +93,14 @@ public final class Constants {
         public static final double MAX_ANGULAR_ACCELERATION = 2 * Math.PI; // radians per second squared, TODO: adjust value
         public static final double MAX_ANGULAR_VELOCITY = 4 * Math.PI; // radians, TODO: adjust value
         public static final double MAX_LINEAR_SPEED = 15; // m/s, TODO: adjust value
-        /** 60.0 rotations of motor = 1.0 rotation of module */
-        // TODO: the gear ratio is not actually 1:60, because 1 rotation != 6.0 radians (6.0 obtained by manually rotating module 1 full rotation)
-        // TODO: document *why* this is 56.954226922496
-        /* Why is the gear ratio 56.954226922496?:
-        * 
+        /** 56.6409 rotations of motor = 1.0 rotation of module 
+         * <p>UltraPlanetary gearbox ratios differ from the ratio printed on
+         * the gearbox's side. The motor is connected to a 5:1 gearbox and a
+         * 4:1 gearbox, whose actual ratios are 5.23:1 and 3.61:1 respectively.
+         * The module spins once for every 3 rotations of the UltraPlanetary's
+         * output, which gives a gear ratio of 5.23 x 3.61 x 3 = 56.6409.
         */
-        public static final double ROTATION_GEAR_RATIO = 1 / 56.954226922496; // 1.0 / 60.0; // .0 to avoid integer division
+        public static final double ROTATION_GEAR_RATIO = 1.0 / 56.6409; // .0 to avoid integer division
         public static final double WHEEL_RADIUS = 0.0508; // metres
         public static final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // metres
         /** 8.0 rotations of motor = 1.0 rotation of wheel */
