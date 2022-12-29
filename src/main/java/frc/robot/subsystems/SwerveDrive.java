@@ -228,6 +228,16 @@ public class SwerveDrive extends SubsystemBase {
     m_rearRight.rotateTo(angle);
   }
 
+  /**
+   * Stop all swerve modules.
+   */
+  public void stop() {
+    m_frontLeft.stop();
+    m_frontRight.stop();
+    m_rearLeft.stop();
+    m_rearRight.stop();
+  }
+
   /** Updates the field relative position of the robot. */
   public void updateOdometry() {
     m_odometry.update(

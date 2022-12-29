@@ -93,6 +93,8 @@ public final class Constants {
         public static final double MAX_ANGULAR_ACCELERATION = 2 * Math.PI; // radians per second squared, TODO: adjust value
         public static final double MAX_ANGULAR_VELOCITY = 4 * Math.PI; // radians, TODO: adjust value
         public static final double MAX_LINEAR_SPEED = 15; // m/s, TODO: adjust value
+        /** Any speeds below this value will not cause the module to move. */
+        public static final double MODULE_SPEED_DEADBAND = 0.001; // m/s
         /** 56.6409 rotations of motor = 1.0 rotation of module 
          * <p>UltraPlanetary gearbox ratios differ from the ratio printed on
          * the gearbox's side. The motor is connected to a 5:1 gearbox and a

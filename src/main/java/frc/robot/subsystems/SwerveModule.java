@@ -20,7 +20,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 //import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
 
 /**
  * Represents a single swerve drive module.
@@ -35,12 +34,12 @@ public class SwerveModule {//implements Sendable {
   private final PIDController m_drivePIDController =
       new PIDController(drivePID_kP, drivePID_kI, drivePID_kD);
   private final ProfiledPIDController m_rotationPIDController =
-  new ProfiledPIDController(
-      rotationPID_kP,
-      rotationPID_kI,
-      rotationPID_kD,
-      new TrapezoidProfile.Constraints(
-          MAX_ANGULAR_ACCELERATION, MAX_ANGULAR_VELOCITY));
+      new ProfiledPIDController(
+          rotationPID_kP,
+          rotationPID_kI,
+          rotationPID_kD,
+          new TrapezoidProfile.Constraints(
+              MAX_ANGULAR_ACCELERATION, MAX_ANGULAR_VELOCITY));
 
   private final SimpleMotorFeedforward m_driveFeedforward =
       new SimpleMotorFeedforward(driveFF_kS, driveFF_kV);
@@ -81,9 +80,9 @@ public class SwerveModule {//implements Sendable {
     SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
-    m_rotationPIDController.setP(SmartDashboard.getNumber(m_name + " Rotation PID kP", Constants.Swerve.Gains.rotationPID_kP));
-    m_rotationPIDController.setI(SmartDashboard.getNumber(m_name + " Rotation PID kI", Constants.Swerve.Gains.rotationPID_kI));
-    m_rotationPIDController.setD(SmartDashboard.getNumber(m_name + " Rotation PID kD", Constants.Swerve.Gains.rotationPID_kD));
+    m_rotationPIDController.setP(SmartDashboard.getNumber(m_name + " Rotation PID kP", rotationPID_kP));
+    m_rotationPIDController.setI(SmartDashboard.getNumber(m_name + " Rotation PID kI", rotationPID_kI));
+    m_rotationPIDController.setD(SmartDashboard.getNumber(m_name + " Rotation PID kD", rotationPID_kD));
     SmartDashboard.putNumber(m_name + " Rotation PID kP", m_rotationPIDController.getP());
     SmartDashboard.putNumber(m_name + " Rotation PID kI", m_rotationPIDController.getI());
     SmartDashboard.putNumber(m_name + " Rotation PID kD", m_rotationPIDController.getD());
@@ -125,6 +124,16 @@ public class SwerveModule {//implements Sendable {
    * @param desiredState Desired state with speed and angle.
    */
   public void setDesiredState(SwerveModuleState desiredState) {
+    /* If the robot is not being instructed to move, do not move any motors. 
+    * This prevents the swerve module from returning to its original position
+    * when the robot is not moving, which is the default behaviour of
+    * ChassisSpeeds and SwerveModuleState.
+    */
+    if (Math.abs(desiredState.speedMetersPerSecond) < MODULE_SPEED_DEADBAND) {
+      stop();
+      return;
+    }
+    
     /* Invert the rotation setpoint because the modules spin clockwise when
     * the rotation setpoint is positive (clockwise-positive) whereas
     * SwerveModuleState specifies counterclockwise-positive angles.
@@ -188,5 +197,13 @@ public class SwerveModule {//implements Sendable {
     SmartDashboard.putNumber(m_name + " Drive Setpoint (m/s)", desiredVelocity);
     SmartDashboard.putNumber(m_name + " Drive Voltage", output);
     m_driveMotor.setVoltage(output);
+  }
+
+  /**
+   * Stop all motors in this module.
+   */
+  public void stop() {
+    m_driveMotor.setVoltage(0);
+    m_rotationMotor.setVoltage(0);
   }
 }
