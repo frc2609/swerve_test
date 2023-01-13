@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 //import edu.wpi.first.util.sendable.SendableBuilder;
 //import edu.wpi.first.util.sendable.SendableRegistry;
@@ -68,7 +69,7 @@ public class SwerveDrive extends SubsystemBase {
       DriverStation.reportError(
         "Navx not initialized - Could not setup SwerveDriveOdometry", false);
     }
-    m_odometry = new SwerveDriveOdometry(m_kinematics, m_gyro.getRotation2d());
+    m_odometry = new SwerveDriveOdometry(m_kinematics, m_gyro.getRotation2d(), new SwerveModulePosition[] {m_frontLeft.getPosition(), m_frontRight.getPosition(), m_rearLeft.getPosition(), m_rearRight.getPosition()});
     resetModuleEncoders();
     // group modules under this subsystem in LiveWindow
     // addChild("Front Left", m_frontLeft);
@@ -242,9 +243,10 @@ public class SwerveDrive extends SubsystemBase {
   public void updateOdometry() {
     m_odometry.update(
       m_gyro.getRotation2d(),
-      m_frontLeft.getState(),
-      m_frontRight.getState(),
-      m_rearLeft.getState(),
-      m_rearRight.getState());
+      new SwerveModulePosition[] {
+      m_frontLeft.getPosition(),
+      m_frontRight.getPosition(),
+      m_rearLeft.getPosition(),
+      m_rearRight.getPosition()});
   }
 }

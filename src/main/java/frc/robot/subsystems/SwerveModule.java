@@ -14,6 +14,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 //import edu.wpi.first.util.sendable.Sendable;
@@ -95,6 +96,18 @@ public class SwerveModule {//implements Sendable {
   //   builder.addDoubleProperty("Velocity (m/s)", m_driveEncoder::getVelocity, null);
   //   builder.addDoubleProperty("Angle (radians)", m_rotationEncoder::getPosition, null);
   // }
+
+  /**
+   * Retuns Position of the module
+   * 
+   * @return Position of the module
+   */
+  public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(
+      m_driveEncoder.getPosition(), 
+      new Rotation2d(m_rotationEncoder.getPosition())
+    );
+  }
 
   /**
    * Returns the current state of the module.
