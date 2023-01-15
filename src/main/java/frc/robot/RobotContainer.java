@@ -106,11 +106,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // replaced with SmartDashboard buttons
-    // m_fieldOrientedToggleButton.whenPressed(new InstantCommand(
+    // m_fieldOrientedToggleButton.onTrue(new InstantCommand(
     //   () -> m_isFieldRelative = !m_isFieldRelative));
-    // m_resetEncoderButton.whenPressed(new InstantCommand(
+    // m_resetEncoderButton.onTrue(new InstantCommand(
     //   m_swerveDrive::resetModuleEncoders, m_swerveDrive));
-    m_zeroYawButton.whenPressed(new InstantCommand(m_navx::zeroYaw));
+    m_zeroYawButton.onTrue(new InstantCommand(m_navx::zeroYaw));
     // this one left in for easy access to resetYaw
   }
 
