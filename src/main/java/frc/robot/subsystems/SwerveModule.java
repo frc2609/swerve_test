@@ -81,6 +81,8 @@ public class SwerveModule {//implements Sendable {
     SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
+    SmartDashboard.putNumber(m_name + " Drive Motor Temp (C°)", m_driveMotor.getMotorTemperature());
+    SmartDashboard.putNumber(m_name + " Rotation Motor Temp (C°)", m_rotationMotor.getMotorTemperature());
     m_rotationPIDController.setP(SmartDashboard.getNumber(m_name + " Rotation PID kP", rotationPID_kP));
     m_rotationPIDController.setI(SmartDashboard.getNumber(m_name + " Rotation PID kI", rotationPID_kI));
     m_rotationPIDController.setD(SmartDashboard.getNumber(m_name + " Rotation PID kD", rotationPID_kD));
