@@ -14,6 +14,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 //import edu.wpi.first.util.sendable.Sendable;
@@ -80,6 +81,8 @@ public class SwerveModule {//implements Sendable {
     SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
     SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
+    SmartDashboard.putNumber(m_name + " Drive Motor Temp (C°)", m_driveMotor.getMotorTemperature());
+    SmartDashboard.putNumber(m_name + " Rotation Motor Temp (C°)", m_rotationMotor.getMotorTemperature());
     m_rotationPIDController.setP(SmartDashboard.getNumber(m_name + " Rotation PID kP", rotationPID_kP));
     m_rotationPIDController.setI(SmartDashboard.getNumber(m_name + " Rotation PID kI", rotationPID_kI));
     m_rotationPIDController.setD(SmartDashboard.getNumber(m_name + " Rotation PID kD", rotationPID_kD));
@@ -95,6 +98,18 @@ public class SwerveModule {//implements Sendable {
   //   builder.addDoubleProperty("Velocity (m/s)", m_driveEncoder::getVelocity, null);
   //   builder.addDoubleProperty("Angle (radians)", m_rotationEncoder::getPosition, null);
   // }
+
+  /**
+   * Retuns Position of the module
+   * 
+   * @return Position of the module
+   */
+  public SwerveModulePosition getPosition() {
+    return new SwerveModulePosition(
+      m_driveEncoder.getPosition(), 
+      new Rotation2d(m_rotationEncoder.getPosition())
+    );
+  }
 
   /**
    * Returns the current state of the module.
