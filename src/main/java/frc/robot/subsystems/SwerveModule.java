@@ -60,6 +60,7 @@ public class SwerveModule {//implements Sendable {
     
     m_rotationEncoder = m_rotationMotor.getEncoder();
     m_rotationEncoder.setPositionConversionFactor(ROTATION_POSITION_CONVERSION);
+    m_rotationEncoder.setVelocityConversionFactor(ROTATION_POSITION_CONVERSION/60);
 
     m_rotationPIDController.enableContinuousInput(-Math.PI, Math.PI);
     // equivalent to -180 degrees and 180 degrees
@@ -79,8 +80,9 @@ public class SwerveModule {//implements Sendable {
   /** Update data being sent and recieved from NetworkTables. */
   public void updateNetworkTables() {
     SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
+    SmartDashboard.putNumber(m_name + " !!Angular Velocity (radps)", m_rotationEncoder.getVelocity());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
-    SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
+    SmartDashboard.putNumber(m_name + " Velocity (mps)", m_driveEncoder.getVelocity());
     SmartDashboard.putNumber(m_name + " Drive Motor Temp (C°)", m_driveMotor.getMotorTemperature());
     SmartDashboard.putNumber(m_name + " Rotation Motor Temp (C°)", m_rotationMotor.getMotorTemperature());
     m_rotationPIDController.setP(SmartDashboard.getNumber(m_name + " Rotation PID kP", rotationPID_kP));
@@ -194,10 +196,13 @@ public class SwerveModule {//implements Sendable {
    */
   public void rotateTo(double desiredAngle) {
     final double position = m_rotationEncoder.getPosition();
-    final double output = m_rotationPIDController.calculate(position, desiredAngle);
+    final double rotationFeedback = m_rotationPIDController.calculate(position, desiredAngle);
+    final double rotationFeedforward =
+      m_rotationFeedforward.calculate(m_rotationPIDController.getSetpoint().velocity);
+    final double output = rotationFeedback+rotationFeedforward;
     SmartDashboard.putNumber(m_name + " Angle Setpoint (rad)", desiredAngle);
     SmartDashboard.putNumber(m_name + " Rotation Voltage", output);
-    m_rotationMotor.setVoltage(output);
+    m_rotationMotor.setVoltage(rotationFeedforward);
   }
 
   /**
@@ -208,7 +213,9 @@ public class SwerveModule {//implements Sendable {
    */
   public void setVelocity(double desiredVelocity) {
     final double velocity = m_driveEncoder.getVelocity();
-    final double output = m_drivePIDController.calculate(velocity, desiredVelocity);
+    final double feedback = m_drivePIDController.calculate(velocity, desiredVelocity);
+    final double feedforward = m_driveFeedforward.calculate(desiredVelocity);
+    final double output = feedback+feedforward;
     SmartDashboard.putNumber(m_name + " Drive Setpoint (m/s)", desiredVelocity);
     SmartDashboard.putNumber(m_name + " Drive Voltage", output);
     m_driveMotor.setVoltage(output);
@@ -221,4 +228,5 @@ public class SwerveModule {//implements Sendable {
     m_driveMotor.setVoltage(0);
     m_rotationMotor.setVoltage(0);
   }
+
 }
