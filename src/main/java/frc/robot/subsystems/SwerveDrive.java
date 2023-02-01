@@ -8,12 +8,14 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.Swerve.*;
 import frc.robot.Constants.Swerve.CanID;
 import frc.robot.Constants.Swerve.Position;
+import frc.robot.Constants.Swerve.TeleopLimits;
 import frc.robot.Constants.Xbox;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -69,7 +71,11 @@ public class SwerveDrive extends SubsystemBase {
       DriverStation.reportError(
         "Navx not initialized - Could not setup SwerveDriveOdometry", false);
     }
-    m_odometry = new SwerveDriveOdometry(m_kinematics, m_gyro.getRotation2d(), new SwerveModulePosition[] {m_frontLeft.getPosition(), m_frontRight.getPosition(), m_rearLeft.getPosition(), m_rearRight.getPosition()});
+    m_odometry = new SwerveDriveOdometry(
+        m_kinematics,
+        m_gyro.getRotation2d(),
+        getModulePositions()
+    );
     resetModuleEncoders();
     // group modules under this subsystem in LiveWindow
     // addChild("Front Left", m_frontLeft);
@@ -77,9 +83,9 @@ public class SwerveDrive extends SubsystemBase {
     // addChild("Rear Left", m_rearLeft);
     // addChild("Rear Right", m_rearRight);
     /* The Field2d widget can also be used to visualize the robot's trajectory:
-    * https://docs.wpilib.org/en/stable/docs/software/dashboards/glass/field2d-widget.html
-    * contains information on how to accomplish this. This could be helpful for
-    * autonomous programming. */
+     * https://docs.wpilib.org/en/stable/docs/software/dashboards/glass/field2d-widget.html
+     * contains information on how to accomplish this. This could be helpful for
+     * autonomous programming. */
     SmartDashboard.putData("Field", m_field);
     SmartDashboard.putBoolean("Reset Encoders", false); // display button
   }
@@ -133,12 +139,8 @@ public class SwerveDrive extends SubsystemBase {
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rotationSpeed, m_gyro.getRotation2d())
                 : new ChassisSpeeds(xSpeed, ySpeed, rotationSpeed));
     // Prevent robot from going faster than it should.
-    SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_LINEAR_SPEED);
-    // Array index order must match the order that m_kinematics was initialized with.
-    m_frontLeft.setDesiredState(states[0]);
-    m_frontRight.setDesiredState(states[1]);
-    m_rearLeft.setDesiredState(states[2]);
-    m_rearRight.setDesiredState(states[3]);
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_POSSIBLE_LINEAR_SPEED);
+    setDesiredStates(states);
   }
 
   /**
@@ -171,20 +173,43 @@ public class SwerveDrive extends SubsystemBase {
     final double xSpeed =
         -m_xSpeedLimiter.calculate(MathUtil.applyDeadband(
             m_driverController.getLeftY(), Xbox.JOYSTICK_DEADBAND))
-                * MAX_LINEAR_SPEED; // m/s
+                * TeleopLimits.MAX_LINEAR_SPEED; // m/s
                 // scale value from 0-1 to 0-MAX_LINEAR_SPEED
 
     final double ySpeed =
         -m_ySpeedLimiter.calculate(MathUtil.applyDeadband(
             m_driverController.getLeftX(), Xbox.JOYSTICK_DEADBAND))
-                * MAX_LINEAR_SPEED;
+                * TeleopLimits.MAX_LINEAR_SPEED;
 
     final double rotationSpeed =
         -m_rotationLimiter.calculate(MathUtil.applyDeadband(
             m_driverController.getRightX(), Xbox.JOYSTICK_DEADBAND))
-                * MAX_ANGULAR_VELOCITY; // radians / second
+                * TeleopLimits.MAX_ANGULAR_VELOCITY; // radians / second
 
     drive(xSpeed, ySpeed, rotationSpeed, m_isFieldRelative);
+  }
+
+  /**
+   * Returns an array containing the position of each swerve module.
+   * 
+   * @return The position of each swerve module in an array.
+   */
+  public SwerveModulePosition[] getModulePositions() {
+    return new SwerveModulePosition[] {
+      m_frontLeft.getPosition(),
+      m_frontRight.getPosition(),
+      m_rearLeft.getPosition(),
+      m_rearRight.getPosition()
+    };
+  }
+
+  /**
+   * Returns the current robot position in metres.
+   * 
+   * @return The position of the robot on the field in metres.
+   */
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
   }
 
   /**
@@ -230,6 +255,19 @@ public class SwerveDrive extends SubsystemBase {
   }
 
   /**
+   * Set the desired state of each swerve module.
+   * 
+   * @param states An array containing each SwerveModuleState.
+   */
+  public void setDesiredStates(SwerveModuleState[] states) {
+    // Array index order must match the order that m_kinematics was initialized with.
+    m_frontLeft.setDesiredState(states[0]);
+    m_frontRight.setDesiredState(states[1]);
+    m_rearLeft.setDesiredState(states[2]);
+    m_rearRight.setDesiredState(states[3]);
+  }
+
+  /**
    * Stop all swerve modules.
    */
   public void stop() {
@@ -241,12 +279,6 @@ public class SwerveDrive extends SubsystemBase {
 
   /** Updates the field relative position of the robot. */
   public void updateOdometry() {
-    m_odometry.update(
-      m_gyro.getRotation2d(),
-      new SwerveModulePosition[] {
-      m_frontLeft.getPosition(),
-      m_frontRight.getPosition(),
-      m_rearLeft.getPosition(),
-      m_rearRight.getPosition()});
+    m_odometry.update(m_gyro.getRotation2d(), getModulePositions());
   }
 }
