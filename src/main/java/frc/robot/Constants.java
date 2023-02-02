@@ -38,22 +38,24 @@ public final class Constants {
          * Since setVoltage() is being used, these gains are tuned to produce
          * a *voltage* value, not a speed value, so `set()` should not be used
          * with any controller using these gains.
-        */
+         */
         public final class Gains {
+            // TODO: tune
             public static final double drivePID_kP = 1.1867;
             public static final double drivePID_kI = 0;
             public static final double drivePID_kD = 0;
 
-            // TODO: tune rotation PID
-            public static final double rotationPID_kP = 15;
-            public static final double rotationPID_kI = 0;
-            public static final double rotationPID_kD = 0;
+            public static final double rotationPID_kP = 0.4;
+            public static final double rotationPID_kI = 0.0001;
+            public static final double rotationPID_kD = 1.0;
+            public static final double rotationPID_IZone = 0.001;
 
+            // TODO: tune
             public static final double driveFF_kS = 0;
             public static final double driveFF_kV = 3.333;
 
-            public static final double rotationFF_kS = 0.13;
-            public static final double rotationFF_kV = 0.6;
+            // SparkMaxPIDController only has 1 feedforward constant.
+            public static final double rotationFF = 0.6;
         }
         /** Constants related to swerve module positions. */
         public final class Position {
@@ -88,11 +90,28 @@ public final class Constants {
             public static final double rearRightX   = -X_FROM_CENTRE;
             public static final double rearRightY   = -Y_FROM_CENTRE;
         }
+        /** Autonomous acceleration and speed limits. */
+        // public final class AutonomousLimits {
+        //     /** The maximum linear acceleration the robot should achieve in m/s^2. */
+        //     public static final double MAX_LINEAR_ACCELERATION = 0; // TODO: adjust value
+        //     /** The maximum speed the drivetrain should go in autonomous in m/s. */
+        //     public static final double MAX_LINEAR_SPEED = 3.8;
+        // }
+        /** Teleop acceleration and speed limits */
+        public final class TeleopLimits {
+            /** The maximum speed the robot should spin in teleop in radians/s. */
+            public static final double MAX_ANGULAR_VELOCITY = 4 * Math.PI; // TODO: adjust value
+            /** The maximum speed the drivetrain should go in teleop in m/s. */
+            public static final double MAX_LINEAR_SPEED = 3.8;
+        }
         // Miscellaneous:
         public static final double DEBUG_DRIVE_ANGLE_SENSITIVITY = 0.25;
-        public static final double MAX_ANGULAR_ACCELERATION = 2 * Math.PI; // radians per second squared, TODO: adjust value
-        public static final double MAX_ANGULAR_VELOCITY = 4 * Math.PI; // radians, TODO: adjust value
-        public static final double MAX_LINEAR_SPEED = 15; // m/s, TODO: adjust value
+        /** The maximum angular acceleration the robot can achieve in radians/s^2. */
+        // public static final double MAX_POSSIBLE_ANGULAR_ACCELERATION = 2 * Math.PI; // unused
+        /** The maximum speed the robot can spin in radians/s. */
+        // public static final double MAX_POSSIBLE_ANGULAR_VELOCITY = 4 * Math.PI; // unused
+        /** The maximum linear speed a swerve module can achieve in m/s. */
+        public static final double MAX_POSSIBLE_LINEAR_SPEED = 3.8;
         /** Any speeds below this value will not cause the module to move. */
         public static final double MODULE_SPEED_DEADBAND = 0.001; // m/s
         /** 56.6409 rotations of motor = 1.0 rotation of module 
@@ -101,7 +120,7 @@ public final class Constants {
          * 4:1 gearbox, whose actual ratios are 5.23:1 and 3.61:1 respectively.
          * The module spins once for every 3 rotations of the UltraPlanetary's
          * output, which gives a gear ratio of 5.23 x 3.61 x 3 = 56.6409.
-        */
+         */
         public static final double ROTATION_GEAR_RATIO = 1.0 / 56.6409; // .0 to avoid integer division
         public static final double WHEEL_RADIUS = 0.0508; // metres
         public static final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // metres
@@ -129,7 +148,7 @@ public final class Constants {
          * Wheel RPS * wheel circumference in metres = m/s.
          * Note: Actual equation is equivalent to procedure above, but simplified.
          */
-        public static final double DRIVE_VELOCITY_CONVERSION = (WHEEL_GEAR_RATIO  * WHEEL_CIRCUMFERENCE) / 60;
+        public static final double DRIVE_VELOCITY_CONVERSION = (WHEEL_GEAR_RATIO * WHEEL_CIRCUMFERENCE) / 60;
         /** Converts to module position in radians.
          * Explanation:
          * Spark Max outputs total rotations.
@@ -137,12 +156,21 @@ public final class Constants {
          * Module rotations * (2 * PI) radians/rotation = rotations in radians (position).
          */
         public static final double ROTATION_POSITION_CONVERSION = 2 * Math.PI * ROTATION_GEAR_RATIO;
+        /** Converts to metres per second.
+         * Explanation:
+         * Spark Max outputs RPM (rotations per minute).
+         * RPM * motor : rotation gear ratio = module RPM
+         * Module RPM / 60 seconds/minute = module RPS
+         * Module RPS * 2 * Pi radians/rotation = radians/second.
+         * Note: Actual equation is equivalent to procedure above, but simplified.
+         */
+        public static final double ROTATION_VELOCITY_CONVERSION = (2 * Math.PI * ROTATION_GEAR_RATIO) / 60;
     }
     /** 
      * Xbox controller related constants. 
      * Do not put button or axis numbers in here, instead use the functions it
      * provides, such as getLeftY() or getXButton().
-    */
+     */
     public final class Xbox {
         public static final int DRIVER_CONTROLLER_PORT = 0;
         public static final double JOYSTICK_DEADBAND = 0.075;

@@ -164,7 +164,7 @@ simgui-ds.json
 simgui.json
 
 # WPILib notes
-WPILib*.md
+/docs/WPILib/
 
 # Todo list
 Todo.md

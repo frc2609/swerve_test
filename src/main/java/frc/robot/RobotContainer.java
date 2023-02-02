@@ -25,6 +25,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ManualDrive;
+import frc.robot.commands.TimedDriveForward;
 // import frc.robot.Constants.Dashboard;
 import frc.robot.subsystems.SwerveDrive;
 
@@ -36,10 +38,12 @@ import frc.robot.subsystems.SwerveDrive;
  */
 public class RobotContainer {
   private static AHRS m_navx;
-  public final XboxController m_driverController = new XboxController(
+  private final XboxController m_driverController = new XboxController(
     Constants.Xbox.DRIVER_CONTROLLER_PORT);
-
-  public final SwerveDrive m_swerveDrive;
+  /* Subsystems should be marked as private so they can only be accessed by
+   * commands that require them. This prevents a subsystem from being used by
+   * multiple things at once, which may potentially cause issues. */
+  private final SwerveDrive m_swerveDrive;
   
   // private final JoystickButton m_fieldOrientedToggleButton = 
   //     new JoystickButton(
@@ -50,6 +54,9 @@ public class RobotContainer {
   private final JoystickButton m_zeroYawButton =
       new JoystickButton(
           m_driverController, XboxController.Button.kY.value);
+  private final JoystickButton m_startCommand =
+      new JoystickButton(
+          m_driverController, XboxController.Button.kStart.value);
 /*
   // Hardcoded Shuffleboard layout did not work.
   private final ShuffleboardTab drivetrainTab = Shuffleboard.getTab(Dashboard.drivetrainTab);
@@ -95,7 +102,7 @@ public class RobotContainer {
     }
     m_swerveDrive = new SwerveDrive(m_navx, m_driverController);
     configureButtonBindings();
-    SmartDashboard.putBoolean("Zero Yaw", false); // display the buttonx
+    SmartDashboard.putBoolean("Zero Yaw", false); // display the button
   }
 
   /**
@@ -110,8 +117,35 @@ public class RobotContainer {
     //   () -> m_isFieldRelative = !m_isFieldRelative));
     // m_resetEncoderButton.onTrue(new InstantCommand(
     //   m_swerveDrive::resetModuleEncoders, m_swerveDrive));
-    m_zeroYawButton.onTrue(new InstantCommand(m_navx::zeroYaw));
     // this one left in for easy access to resetYaw
+    m_zeroYawButton.onTrue(new InstantCommand(m_navx::zeroYaw));
+    m_startCommand.onTrue(new TimedDriveForward(2, m_swerveDrive));
+  }
+
+  /**
+   * Disable driver control of the drivetrain.
+   * <p>Should be called at the start of autonomous to prevent driver control
+   * during autonomous after the robot is switched from teleop to autonomous
+   * mode. If this is not called, whenever autonomous is not using the
+   * drivetrain, the driver will have control of the robot during autonomous.
+   * This situation won't be encountered during a match, but may cause issues
+   * during testing or development.
+   */
+  public void disableTeleopControl() {
+    m_swerveDrive.setDefaultCommand(null);
+  }
+
+  /**
+   * Set the default command of the drivetrain to driver control.
+   * <p>Should be called at the start of teleop to allow the driver to control
+   * the robot.
+   */
+  public void enableTeleopControl() {
+    /* Using a default command instead of calling the manualDrive() function in
+     * teleopPeriodic() allows a command to take over the drivetrain
+     * temporarily during teleop. This may be useful for auto-balancing or
+     * moving into position to deliver a game piece. */
+    m_swerveDrive.setDefaultCommand(new ManualDrive(m_swerveDrive));
   }
 
   /**

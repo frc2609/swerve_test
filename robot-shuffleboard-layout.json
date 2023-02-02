@@ -19,7 +19,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Velocity (m/s)",
-              "_title": "Rear Right Velocity (m/s)"
+              "_title": "Rear Right Velocity (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "1,0": {
@@ -30,7 +32,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Angle (rad)",
-              "_title": "Rear Left Angle (rad)"
+              "_title": "Rear Left Angle (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "2,0": {
@@ -41,7 +45,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Rotation Voltage",
-              "_title": "Front Right Rotation Voltage"
+              "_title": "Front Right Rotation Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "3,0": {
@@ -53,6 +59,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Navx Connected",
               "_title": "Navx Connected",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -65,7 +73,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Distance Travelled (m)",
-              "_title": "Front Right Distance Travelled (m)"
+              "_title": "Front Right Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "5,0": {
@@ -76,7 +86,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Drive Setpoint (m/s)",
-              "_title": "Front Right Drive Setpoint (m/s)"
+              "_title": "Front Right Drive Setpoint (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "6,0": {
@@ -87,7 +99,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Angle (rad)",
-              "_title": "Front Left Angle (rad)"
+              "_title": "Front Left Angle (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "7,0": {
@@ -98,7 +112,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Velocity (m/s)",
-              "_title": "Front Left Velocity (m/s)"
+              "_title": "Front Left Velocity (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "8,0": {
@@ -109,7 +125,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Drive Setpoint (m/s)",
-              "_title": "Rear Right Drive Setpoint (m/s)"
+              "_title": "Rear Right Drive Setpoint (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "9,0": {
@@ -120,7 +138,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Drive Voltage",
-              "_title": "Front Left Drive Voltage"
+              "_title": "Front Left Drive Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "10,0": {
@@ -131,7 +151,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Rotation PID kD",
-              "_title": "Front Right Rotation PID kD"
+              "_title": "Front Right Rotation PID kD",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "11,0": {
@@ -142,7 +164,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Rotation PID kI",
-              "_title": "Front Right Rotation PID kI"
+              "_title": "Front Right Rotation PID kI",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "12,0": {
@@ -153,7 +177,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Angle Setpoint (rad)",
-              "_title": "Front Right Angle Setpoint (rad)"
+              "_title": "Front Right Angle Setpoint (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "0,1": {
@@ -164,7 +190,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Rotation PID kP",
-              "_title": "Front Right Rotation PID kP"
+              "_title": "Front Right Rotation PID kP",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "1,1": {
@@ -175,7 +203,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Drive Voltage",
-              "_title": "Front Right Drive Voltage"
+              "_title": "Front Right Drive Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "2,1": {
@@ -186,7 +216,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Rotation Voltage",
-              "_title": "Rear Left Rotation Voltage"
+              "_title": "Rear Left Rotation Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "3,1": {
@@ -197,7 +229,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Drive Voltage",
-              "_title": "Rear Left Drive Voltage"
+              "_title": "Rear Left Drive Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "4,1": {
@@ -208,7 +242,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Drive Setpoint (m/s)",
-              "_title": "Front Left Drive Setpoint (m/s)"
+              "_title": "Front Left Drive Setpoint (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "5,1": {
@@ -219,7 +255,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Drive Setpoint (m/s)",
-              "_title": "Rear Left Drive Setpoint (m/s)"
+              "_title": "Rear Left Drive Setpoint (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "6,1": {
@@ -230,7 +268,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Velocity (m/s)",
-              "_title": "Rear Left Velocity (m/s)"
+              "_title": "Rear Left Velocity (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "7,1": {
@@ -241,7 +281,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Angle Setpoint (rad)",
-              "_title": "Rear Right Angle Setpoint (rad)"
+              "_title": "Rear Right Angle Setpoint (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "8,1": {
@@ -252,7 +294,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Rotation PID kD",
-              "_title": "Front Left Rotation PID kD"
+              "_title": "Front Left Rotation PID kD",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "9,1": {
@@ -264,6 +308,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Zero Yaw",
               "_title": "Zero Yaw",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -276,7 +322,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Distance Travelled (m)",
-              "_title": "Rear Right Distance Travelled (m)"
+              "_title": "Rear Right Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "11,1": {
@@ -287,7 +335,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Rotation PID kI",
-              "_title": "Front Left Rotation PID kI"
+              "_title": "Front Left Rotation PID kI",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "12,1": {
@@ -298,7 +348,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Angle (rad)",
-              "_title": "Front Right Angle (rad)"
+              "_title": "Front Right Angle (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "0,2": {
@@ -309,7 +361,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Angle (rad)",
-              "_title": "Rear Right Angle (rad)"
+              "_title": "Rear Right Angle (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "1,2": {
@@ -320,7 +374,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Rotation PID kP",
-              "_title": "Front Left Rotation PID kP"
+              "_title": "Front Left Rotation PID kP",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "2,2": {
@@ -331,7 +387,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Drive Voltage",
-              "_title": "Rear Right Drive Voltage"
+              "_title": "Rear Right Drive Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "3,2": {
@@ -342,7 +400,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Velocity (m/s)",
-              "_title": "Front Right Velocity (m/s)"
+              "_title": "Front Right Velocity (m/s)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "4,2": {
@@ -353,7 +413,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Angle Setpoint (rad)",
-              "_title": "Front Left Angle Setpoint (rad)"
+              "_title": "Front Left Angle Setpoint (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "5,2": {
@@ -364,7 +426,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Angle Setpoint (rad)",
-              "_title": "Rear Left Angle Setpoint (rad)"
+              "_title": "Rear Left Angle Setpoint (rad)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "6,2": {
@@ -375,7 +439,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Distance Travelled (m)",
-              "_title": "Front Left Distance Travelled (m)"
+              "_title": "Front Left Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "7,2": {
@@ -386,7 +452,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Gyro Angle",
-              "_title": "Gyro Angle"
+              "_title": "Gyro Angle",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "8,2": {
@@ -397,7 +465,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Rotation Voltage",
-              "_title": "Rear Right Rotation Voltage"
+              "_title": "Rear Right Rotation Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "9,2": {
@@ -408,7 +478,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Rotation PID kD",
-              "_title": "Rear Right Rotation PID kD"
+              "_title": "Rear Right Rotation PID kD",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "10,2": {
@@ -419,7 +491,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Rotation PID kI",
-              "_title": "Rear Right Rotation PID kI"
+              "_title": "Rear Right Rotation PID kI",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "11,2": {
@@ -430,7 +504,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Rotation PID kP",
-              "_title": "Rear Right Rotation PID kP"
+              "_title": "Rear Right Rotation PID kP",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "12,2": {
@@ -441,7 +517,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Rotation PID kD",
-              "_title": "Rear Left Rotation PID kD"
+              "_title": "Rear Left Rotation PID kD",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "0,3": {
@@ -452,7 +530,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Rotation Voltage",
-              "_title": "Front Left Rotation Voltage"
+              "_title": "Front Left Rotation Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "1,3": {
@@ -464,6 +544,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Reset Encoders",
               "_title": "Reset Encoders",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -477,6 +559,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Is Field Relative",
               "_title": "Is Field Relative",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -489,7 +573,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Rotation PID kP",
-              "_title": "Rear Left Rotation PID kP"
+              "_title": "Rear Left Rotation PID kP",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "4,3": {
@@ -500,7 +586,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Rotation PID kI",
-              "_title": "Rear Left Rotation PID kI"
+              "_title": "Rear Left Rotation PID kI",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "5,3": {
@@ -511,7 +599,129 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Distance Travelled (m)",
-              "_title": "Rear Left Distance Travelled (m)"
+              "_title": "Rear Left Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Field",
+              "_source0": "network_table:///SmartDashboard/Field",
+              "_title": "Field",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Game/Game": "A2022_Rapid_React",
+              "Visuals/Robot Icon Size": 50.0,
+              "Visuals/Show Outside Circles": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Drive Motor Temp (C°)",
+              "_title": "Front Left Drive Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Rotation Motor Temp (C°)",
+              "_title": "Front Left Rotation Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Drive Motor Temp (C°)",
+              "_title": "Front Right Drive Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "11,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Rotation Motor Temp (C°)",
+              "_title": "Front Right Rotation Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Drive Motor Temp (C°)",
+              "_title": "Rear Left Drive Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Rotation Motor Temp (C°)",
+              "_title": "Rear Left Rotation Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Drive Motor Temp (C°)",
+              "_title": "Rear Right Drive Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Rotation Motor Temp (C°)",
+              "_title": "Rear Right Rotation Motor Temp (C°)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }
@@ -537,12 +747,16 @@
               "_type": "Subsystem Layout",
               "_source0": "network_table:///LiveWindow/Ungrouped",
               "_title": "Ungrouped",
+              "_glyph": 149,
+              "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "Gyro",
                   "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[1]",
                   "_title": "navX-Sensor[1]",
+                  "_glyph": 148,
+                  "_showGlyph": false,
                   "Visuals/Major tick spacing": 45.0,
                   "Visuals/Starting angle": 180.0,
                   "Visuals/Show tick mark ring": true,
@@ -551,42 +765,58 @@
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[6]",
-                  "_title": "PIDController[6]"
+                  "_title": "PIDController[6]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[4]",
-                  "_title": "PIDController[4]"
+                  "_title": "PIDController[4]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[2]",
-                  "_title": "PIDController[2]"
+                  "_title": "PIDController[2]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[8]",
-                  "_title": "PIDController[8]"
+                  "_title": "PIDController[8]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[5]",
-                  "_title": "PIDController[5]"
+                  "_title": "PIDController[5]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[7]",
-                  "_title": "PIDController[7]"
+                  "_title": "PIDController[7]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[3]",
-                  "_title": "PIDController[3]"
+                  "_title": "PIDController[3]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 },
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
-                  "_title": "PIDController[1]"
+                  "_title": "PIDController[1]",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 }
               ]
             }
@@ -600,12 +830,16 @@
               "_type": "Subsystem Layout",
               "_source0": "network_table:///LiveWindow/Front Left",
               "_title": "Front Left",
+              "_glyph": 149,
+              "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Front Left/Drive PID Controller",
-                  "_title": "Drive PID Controller"
+                  "_title": "Drive PID Controller",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 }
               ]
             }
@@ -619,12 +853,16 @@
               "_type": "Subsystem Layout",
               "_source0": "network_table:///LiveWindow/Front Right",
               "_title": "Front Right",
+              "_glyph": 149,
+              "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Front Right/Drive PID Controller",
-                  "_title": "Drive PID Controller"
+                  "_title": "Drive PID Controller",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 }
               ]
             }
@@ -638,12 +876,16 @@
               "_type": "Subsystem Layout",
               "_source0": "network_table:///LiveWindow/Rear Left",
               "_title": "Rear Left",
+              "_glyph": 149,
+              "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Rear Left/Drive PID Controller",
-                  "_title": "Drive PID Controller"
+                  "_title": "Drive PID Controller",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 }
               ]
             }
@@ -657,12 +899,16 @@
               "_type": "Subsystem Layout",
               "_source0": "network_table:///LiveWindow/Rear Right",
               "_title": "Rear Right",
+              "_glyph": 149,
+              "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "PID Controller",
                   "_source0": "network_table:///LiveWindow/Rear Right/Drive PID Controller",
-                  "_title": "Drive PID Controller"
+                  "_title": "Drive PID Controller",
+                  "_glyph": 148,
+                  "_showGlyph": false
                 }
               ]
             }
@@ -676,12 +922,16 @@
               "_type": "Subsystem Layout",
               "_source0": "network_table:///LiveWindow/SwerveDrive",
               "_title": "SwerveDrive",
+              "_glyph": 149,
+              "_showGlyph": false,
               "Layout/Label position": "BOTTOM",
               "_children": [
                 {
                   "_type": "Boolean Box",
                   "_source0": "network_table:///LiveWindow/SwerveDrive/Is Field Relative",
                   "_title": "Is Field Relative",
+                  "_glyph": 148,
+                  "_showGlyph": false,
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
                 },
@@ -689,6 +939,8 @@
                   "_type": "Boolean Box",
                   "_source0": "network_table:///LiveWindow/SwerveDrive/Reset Encoders",
                   "_title": "Reset Encoders",
+                  "_glyph": 148,
+                  "_showGlyph": false,
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
                 }
@@ -717,7 +969,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Left Distance Travelled (m)",
-              "_title": "Front Left Distance Travelled (m)"
+              "_title": "Front Left Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "11,1": {
@@ -728,7 +982,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Front Right Distance Travelled (m)",
-              "_title": "Front Right Distance Travelled (m)"
+              "_title": "Front Right Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "0,3": {
@@ -739,7 +995,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Distance Travelled (m)",
-              "_title": "Rear Left Distance Travelled (m)"
+              "_title": "Rear Left Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "11,3": {
@@ -750,7 +1008,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Right Distance Travelled (m)",
-              "_title": "Rear Right Distance Travelled (m)"
+              "_title": "Rear Right Distance Travelled (m)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "4,0": {
@@ -762,6 +1022,8 @@
               "_type": "Field",
               "_source0": "network_table:///SmartDashboard/Field",
               "_title": "Field",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Game/Game": "A2022_Rapid_React",
               "Visuals/Robot Icon Size": 50.0,
               "Visuals/Show Outside Circles": false
@@ -775,6 +1037,8 @@
             "content": {
               "_type": "Gyro",
               "_title": "Gyro",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -789,7 +1053,9 @@
             "content": {
               "_type": "Toggle Button",
               "_source0": "network_table:///SmartDashboard/Zero Yaw",
-              "_title": "Zero Yaw"
+              "_title": "Zero Yaw",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "4,3": {
@@ -800,7 +1066,9 @@
             "content": {
               "_type": "Toggle Button",
               "_source0": "network_table:///SmartDashboard/Is Field Relative",
-              "_title": "Field Oriented"
+              "_title": "Field Oriented",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "4,4": {
@@ -811,7 +1079,9 @@
             "content": {
               "_type": "Toggle Button",
               "_source0": "network_table:///SmartDashboard/Reset Encoders",
-              "_title": "Reset Encoders"
+              "_title": "Reset Encoders",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "9,2": {
@@ -822,6 +1092,8 @@
             "content": {
               "_type": "Gyro",
               "_title": "Gyro",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -836,6 +1108,8 @@
             "content": {
               "_type": "Gyro",
               "_title": "Gyro",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -850,6 +1124,8 @@
             "content": {
               "_type": "Gyro",
               "_title": "Gyro",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -865,6 +1141,8 @@
               "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Front Right Velocity (m/s)",
               "_title": "Simple Dial",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Range/Min": 0.0,
               "Range/Max": 100.0,
               "Visuals/Show value": true
@@ -879,6 +1157,8 @@
               "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Rear Left Velocity (m/s)",
               "_title": "Simple Dial",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Range/Min": 0.0,
               "Range/Max": 100.0,
               "Visuals/Show value": true
@@ -893,6 +1173,8 @@
               "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Rear Right Velocity (m/s)",
               "_title": "Simple Dial",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Range/Min": 0.0,
               "Range/Max": 100.0,
               "Visuals/Show value": true
@@ -907,6 +1189,8 @@
               "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Front Left Velocity (m/s)",
               "_title": "Simple Dial",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Range/Min": 0.0,
               "Range/Max": 100.0,
               "Visuals/Show value": true
@@ -921,6 +1205,8 @@
               "_type": "Gyro",
               "_source0": "network_table:///LiveWindow/Ungrouped/navX-Sensor[1]",
               "_title": "Gyro",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -935,7 +1221,9 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Rear Left Angle (radians)",
-              "_title": "Rear Left Angle (radians)"
+              "_title": "Rear Left Angle (radians)",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           },
           "14,1": {
@@ -947,6 +1235,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Is Field Relative",
               "_title": "Is Field Relative",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -960,6 +1250,8 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Navx Connected",
               "_title": "SmartDashboard/Navx Connected",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
@@ -986,6 +1278,8 @@
             "content": {
               "_type": "Graph",
               "_title": "Actual Position \u0026 PID Setpoint",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
               "Y-axis/Automatic bounds": true,
@@ -1002,6 +1296,8 @@
             "content": {
               "_type": "Gyro",
               "_title": "Setpoint",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -1016,6 +1312,8 @@
             "content": {
               "_type": "Gyro",
               "_title": "Actual Position",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
               "Visuals/Starting angle": 180.0,
               "Visuals/Show tick mark ring": true,
@@ -1030,11 +1328,14 @@
             "content": {
               "_type": "Number Bar",
               "_title": "Number Bar",
+              "_glyph": 148,
+              "_showGlyph": false,
               "Range/Min": -1.0,
               "Range/Max": 1.0,
               "Range/Center": 0.0,
               "Visuals/Num tick marks": 5,
-              "Visuals/Show text": true
+              "Visuals/Show text": true,
+              "Visuals/Orientation": "HORIZONTAL"
             }
           },
           "8,3": {
@@ -1044,7 +1345,9 @@
             ],
             "content": {
               "_type": "PID Controller",
-              "_title": "PID Controller"
+              "_title": "PID Controller",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }
@@ -1052,9 +1355,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.0,
-    "y": 2.0,
-    "width": 1932.0,
-    "height": 1045.0
+    "x": -8.0,
+    "y": -8.0,
+    "width": 1936.0,
+    "height": 1056.0
   }
 }
