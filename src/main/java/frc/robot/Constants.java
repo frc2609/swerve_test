@@ -50,10 +50,10 @@ public final class Constants {
             public static final double rotationPID_kD = 0;
 
             public static final double driveFF_kS = 0;
-            public static final double driveFF_kV = 0;
+            public static final double driveFF_kV = 3.333;
 
-            public static final double rotationFF_kS = 0;
-            public static final double rotationFF_kV = 0;
+            public static final double rotationFF_kS = 0.13;
+            public static final double rotationFF_kV = 0.6;
         }
         /** Constants related to swerve module positions. */
         public final class Position {
