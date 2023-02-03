@@ -31,7 +31,6 @@ public final class Constants {
             public static final int rearRightDrive = 7;
             public static final int rearRightRotation = 8;
         }
-        // TODO: find values
         /** Swerve drive PID and feedforward gains. 
          * setVoltage() is used to set motor power, as it ensures the motor
          * always outputs the same force when the battery voltage sags. 
@@ -40,8 +39,7 @@ public final class Constants {
          * with any controller using these gains.
          */
         public final class Gains {
-            // TODO: tune
-            public static final double drivePID_kP = 1.1867;
+            public static final double drivePID_kP = 1;
             public static final double drivePID_kI = 0;
             public static final double drivePID_kD = 0;
 
@@ -50,12 +48,12 @@ public final class Constants {
             public static final double rotationPID_kD = 1.0;
             public static final double rotationPID_IZone = 0.001;
 
-            // TODO: tune
             public static final double driveFF_kS = 0;
             public static final double driveFF_kV = 3.333;
+            public static final double driveFF_kA = 0;
 
             // SparkMaxPIDController only has 1 feedforward constant.
-            public static final double rotationFF = 0.6;
+            public static final double rotationFF = 0;
         }
         /** Constants related to swerve module positions. */
         public final class Position {

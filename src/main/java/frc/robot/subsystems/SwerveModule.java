@@ -59,6 +59,9 @@ public class SwerveModule {//implements Sendable {
     m_rotationPIDController = m_rotationMotor.getPIDController();
     configureSparkMaxPID();
 
+    m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    m_rotationMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
     m_name = name;
 
     // SparkMaxPIDController and SimpleMotorFeedForward are not sent as they do not implement Sendable.
@@ -74,9 +77,9 @@ public class SwerveModule {//implements Sendable {
   /** Update data being sent and recieved from NetworkTables. */
   public void updateNetworkTables() {
     SmartDashboard.putNumber(m_name + " Angle (rad)", m_rotationEncoder.getPosition());
-    SmartDashboard.putNumber(m_name + " !!Angular Velocity (radps)", m_rotationEncoder.getVelocity());
+    SmartDashboard.putNumber(m_name + " Angular Velocity (rad/s)", m_rotationEncoder.getVelocity());
     SmartDashboard.putNumber(m_name + " Distance Travelled (m)", m_driveEncoder.getPosition());
-    SmartDashboard.putNumber(m_name + " Velocity (mps)", m_driveEncoder.getVelocity());
+    SmartDashboard.putNumber(m_name + " Velocity (m/s)", m_driveEncoder.getVelocity());
     SmartDashboard.putNumber(m_name + " Drive Motor Temp (C°)", m_driveMotor.getMotorTemperature());
     SmartDashboard.putNumber(m_name + " Rotation Motor Temp (C°)", m_rotationMotor.getMotorTemperature());
   }
